@@ -42,9 +42,11 @@ Class Declaration (**SGM**):
 	- **compute_disparity**: Computes disparity maps using SGM algorithm
 	- **save_disparity**: Saves the computed disparity map to a file
 	- **compute_mse**: Computes Mean Squared Error (MSE) between the computed disparity map and a ground truth disparity map
+	
 - **Private Member Functions**:
 	- **init_paths**: Initializes paths for path calculation
 	- **aggregation**: Aggregates costs over path
 	- **calculate_cost_hamming**: Calculates cost based on Hamming distance
+	
 - **Private Member Variables**: Various parameters and data structures used in the algorithm, such as image dimensions, disparity range, penalty parameters (p1, p2), threshold for confidence, window dimensions, matrices for disparity and monochrome images, arrays for cost computation, etc.
 
