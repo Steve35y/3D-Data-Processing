@@ -83,7 +83,7 @@ void compute_hamming_lut()
 }
 ```
 
-**SGM constructor**: Initializes an instance of the SGM class with parameters like disparity range, penalties, confidence threshold, and window size.
+- **SGM constructor**: Initializes an instance of the SGM class with parameters like disparity range, penalties, confidence threshold, and window size.
 	
 ```C++
 SGM::SGM(unsigned int disparity_range, unsigned int p1, unsigned int p2, float conf_thresh, unsigned int window_height, unsigned window_width):
