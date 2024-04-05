@@ -49,7 +49,7 @@ Class Declaration (**SGM**):
 	
 - **Private Member Variables**: Various parameters and data structures used in the algorithm, such as image dimensions, disparity range, penalty parameters (p1, p2), threshold for confidence, window dimensions, matrices for disparity and monochrome images, arrays for cost computation, etc.
 
-## sgm.cpp
+## sgm.cpp / actual code implementation
 
 Here, my code implementation is provided.
 
