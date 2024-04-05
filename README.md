@@ -32,3 +32,9 @@ The scalar factor has to be computed once the disparity map with SGM is, and use
 - Compute disparity map with **compute_disparity** method.
 - Saves the disparity map.
 - Calculates the Mean Squared Error between the computed disparity map and the ground truth disparity map.
+
+#### sgm.h
+
+This code defines the class SGM.
+
+
