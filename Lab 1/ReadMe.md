@@ -304,6 +304,7 @@ The objective of the **compute_path_cost()** function is to calculate the cost a
 
 ### Implementation
 **Special case**: If the current pixel is on the border of the image (first or last row/column). We don't consider smoothness penalties then; at the border of the image, there may not be neighboring pixels in certain directions. Therefore, applying smoothness penalties in these cases could lead to incorrect cost computations or undefined behavior.to encourage smooth transitions between adjacent disparities.
+
 **Regular case**: For pixel not on the border, we consider smoothness penalties (**p1**, **p2**).
 ```C++
 void SGM::compute_path_cost(int direction_y, int direction_x, int cur_y, int cur_x, int cur_path)
