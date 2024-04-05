@@ -17,7 +17,7 @@ For more information, please refer to the paper website: [Depth Anything](https:
 
 ### Overview
 
-### References
+#### References
 
 ## Lab 3 - To be updated
 
