@@ -61,7 +61,7 @@ Here, my code implementation is provided.
 
 3. Function Definitions:
 	- **compute_hamming_lut()**: Computes Hamming distances for all pairs of byte values and fills the hamLut table.
-```C++
+```C
 void compute_hamming_lut()
 {
   for (uchar i = 0; i < 255; i++)
