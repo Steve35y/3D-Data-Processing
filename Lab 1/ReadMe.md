@@ -61,6 +61,27 @@ Here, my code implementation is provided.
 
 3. Function Definitions:
 	- **compute_hamming_lut()**: Computes Hamming distances for all pairs of byte values and fills the hamLut table.
+	
+```C++
+void compute_hamming_lut()
+{
+  for (uchar i = 0; i < 255; i++)
+  {
+    for (uchar j = 0; j < 255; j++)
+    {
+      uchar census_xor = i^j;
+      uchar dist=0;
+      while(census_xor)
+      {
+        ++dist;
+        census_xor &= census_xor-1;
+      }
+      
+      hamLut[i][j] = dist;
+    }
+  }
+}
+```
 	- **SGM constructor**: Initializes an instance of the SGM class with parameters like disparity range, penalties, confidence threshold, and window size.
 	- **set()**: Sets the left and right images along with their dimensions.
 	- **init_paths()**: Initializes the path directions skipping the degenerate path.
