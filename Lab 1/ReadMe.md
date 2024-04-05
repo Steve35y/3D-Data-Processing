@@ -55,9 +55,19 @@ Here, my code implementation is provided.
 
 1. Definitions: **NUM_DIRS** and **PATHS_PER_SCAN** are defined as constants, representing the number of directions and paths per scan, respectively.
 
+```C++
+#define NUM_DIRS 3
+#define PATHS_PER_SCAN 8
+```
+
 2. Global Variables:
 	- **hamLut**: A lookup table for storing precomputed Hamming distances between all pairs of byte values (0-255).
 	- **directions**: An array of integers representing directions for path initialization.
+
+```C++
+static char hamLut[256][256];
+static int directions[NUM_DIRS] = {0, -1, 1};
+```
 
 3. Function Definitions:
 - **compute_hamming_lut()**: Computes Hamming distances for all pairs of byte values and fills the hamLut table.
