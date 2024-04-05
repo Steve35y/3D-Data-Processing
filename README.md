@@ -62,7 +62,17 @@ Here, my code implementation is provided.
 	- **hamLut**: A lookup table for storing precomputed Hamming distances between all pairs of byte values (0-255).
 	- **directions**: An array of integers representing directions for path initialization.
 
-
+3. Function Definitions:
+- **compute_hamming_lut()**: Computes Hamming distances for all pairs of byte values and fills the hamLut table.
+- SGM constructor: Initializes an instance of the SGM class with parameters like disparity range, penalties, confidence threshold, and window size.
+- set(): Sets the left and right images along with their dimensions.
+- init_paths(): Initializes the path directions skipping the degenerate path.
+- calculate_cost_hamming(): Computes the cost using the Hamming distance between census transformed pixel values of the left and right images.
+- compute_path_cost(): Computes the path cost for a given pixel, direction, and disparity.
+- aggregation(): Aggregates the costs along different paths.
+- compute_disparity(): Computes the disparity map by first calculating costs, then aggregating them, and finally estimating disparities.
+- compute_mse(): Computes the Mean Squared Error (MSE) between the computed disparity map and the ground truth.
+- save_disparity(): Saves the computed disparity map to an image file.
 
 
 
