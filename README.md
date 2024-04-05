@@ -55,3 +55,44 @@ Class Declaration (**SGM**):
 #### sgm.cpp
 
 Here, my code implementation is provided.
+
+1. Definitions: **NUM_DIRS** and **PATHS_PER_SCAN** are defined as constants, representing the number of directions and paths per scan, respectively.
+
+2. Global Variables:
+	- **hamLut**: A lookup table for storing precomputed Hamming distances between all pairs of byte values (0-255).
+	- **directions**: An array of integers representing directions for path initialization.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
