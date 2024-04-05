@@ -37,7 +37,7 @@ The scalar factor has to be computed once the disparity map with SGM is, and use
 
 This code defines the class SGM.
 Class Declaration (**SGM**):
-- **Constructor**: Initializes various parameters used in the Semi-Global Matching algorithm.
+- **Constructor**: **SGM**Initializes various parameters used in the Semi-Global Matching algorithm.
 - **Public Member Functions**:
 	- **set**: Sets input images and performs some preprocessing
 	- **compute_disparity**: Computes disparity maps using SGM algorithm
@@ -48,6 +48,7 @@ Class Declaration (**SGM**):
 	- **init_paths**: Initializes paths for path calculation
 	- **aggregation**: Aggregates costs over path
 	- **calculate_cost_hamming**: Calculates cost based on Hamming distance
+	- **compute_path_cost**: Compute path cost
 	
 - **Private Member Variables**: Various parameters and data structures used in the algorithm, such as image dimensions, disparity range, penalty parameters (p1, p2), threshold for confidence, window dimensions, matrices for disparity and monochrome images, arrays for cost computation, etc.
 
