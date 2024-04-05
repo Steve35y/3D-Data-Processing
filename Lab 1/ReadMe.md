@@ -106,9 +106,12 @@ void compute_hamming_lut()
 - **SGM constructor**: Initializes an instance of the SGM class with parameters like disparity range, penalties, confidence threshold, and window size.
 	
 ```C++
+// Declaration of the constructor
 SGM::SGM(unsigned int disparity_range, unsigned int p1, unsigned int p2, float conf_thresh, unsigned int window_height, unsigned window_width):
+//The part after the colon (':') is the initializer list. It's a comma-separated list of member variable initializations. Each item in the initializer list consists of the member variable name followed by (value), where value is the value to initialize the member variable with.
   disparity_range_(disparity_range), p1_(p1), p2_(p2), conf_thresh_(conf_thresh), window_height_(window_height), window_width_(window_width)
   {
+// This is the body of the constructor. It contains the code that will be executed when an object of the SGM class is created. In this case, it calls the compute_hamming_lut() function to compute the Hamming distance lookup table.
     compute_hamming_lut();
   }
 ```
