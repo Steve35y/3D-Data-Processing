@@ -1,4 +1,4 @@
-## Lab 1 - Semi Global Stereo Matching with Monocular Disparity Initial Guess
+# Lab 1 - Semi Global Stereo Matching with Monocular Disparity Initial Guess
 
 Semi-global matching (SGM) is a computer vision algorithm for the estimation of a dense disparity map from a rectified stereo image pair.
 
@@ -6,12 +6,12 @@ Semi-global matching (SGM) is a computer vision algorithm for the estimation of 
 
 - Stereo imaging is a technique for creating or enhancing the illusion of depth in an image by means of stereopsis for binocular vision. Here we rectify the image pair into a common image plane being one of the two, left or right, image planes.
 
-### In the assignment:
+## In the assignment:
 An initial guess of the disparity map is provided calculated using a very recent data-driven monocular depth estimation method, generally very accurate, defined up to a scalar factor.
 
 The scalar factor has to be computed once the disparity map with SGM is, and used the scaled initial guess disparity map to refine the disparity map computed with SGM.
 
-#### main.cpp
+### main.cpp
 
 - Includes the header file sgm.h for the SGM algorithm implementation.
 - Defines the main function taking command-line arguments 'argc' and 'argv'.
@@ -30,7 +30,7 @@ The scalar factor has to be computed once the disparity map with SGM is, and use
 - Saves the disparity map.
 - Calculates the Mean Squared Error between the computed disparity map and the ground truth disparity map.
 
-#### sgm.h
+### sgm.h
 
 This code defines the class SGM.
 Class Declaration (**SGM**):
@@ -49,7 +49,7 @@ Class Declaration (**SGM**):
 	
 - **Private Member Variables**: Various parameters and data structures used in the algorithm, such as image dimensions, disparity range, penalty parameters (p1, p2), threshold for confidence, window dimensions, matrices for disparity and monochrome images, arrays for cost computation, etc.
 
-#### sgm.cpp
+## sgm.cpp
 
 Here, my code implementation is provided.
 
