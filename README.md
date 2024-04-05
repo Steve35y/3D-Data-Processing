@@ -26,9 +26,9 @@ The scalar factor has to be computed once the disparity map with SGM is, and use
 	- [5] File path for the output disparity image.
 	- [6] Disparity range.
 - Declares cv::Mat objects to store the images load from files.
-- Loads the images making the grayscaled.
-- Creates an instance of the 'SGM' class with the specified disparity range.
-- Uses the 'set' method of the 'SGM' class to set left and right images along with the monocular right image.
+- Loads the images making them grayscaled.
+- Creates an instance of the **SGM** class with the specified disparity range.
+- Uses the **set** method of the **SGM** class to set left and right images along with the monocular right image.
 - Compute disparity map.
 - Saves the disparity map.
 - Calculates the Mean Squared Error between the computed disparity map and the ground truth disparity map.
