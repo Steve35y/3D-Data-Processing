@@ -155,13 +155,16 @@ void SGM::set(const  cv::Mat &left_img, const  cv::Mat &right_img, const  cv::Ma
 ```C++
 void SGM::init_paths()
   {
+    // These loops iterate over each combination of directions defined by the directions array. 
     for(int i = 0; i < NUM_DIRS; ++i)
     {
       for(int j = 0; j < NUM_DIRS; ++j)
       {
         // skip degenerate path
         if (i==0 && j==0)
-          continue;
+          continue;	// skip
+          
+        // This line creates a new path and adds it to paths_
         paths_.push_back({directions[i], directions[j]});
       }
     }
@@ -173,26 +176,37 @@ void SGM::init_paths()
 ```C++
 void SGM::calculate_cost_hamming()
   {
+  
+    // Variables and matrices to store census transform results
     uchar census_left, census_right, shift_count;
     cv::Mat_<uchar> census_img[2];
     cv::Mat_<uchar> census_mono[2];
+    
     cout << "\nApplying Census Transform" <<endl;
     
+    // Loop over left and right images
     for( int view = 0; view < 2; view++)
     {
       census_img[view] = cv::Mat_<uchar>::zeros(height_,width_);
       census_mono[view] = cv::Mat_<uchar>::zeros(height_,width_);
 
+
+      //// Loop over image rows
       for (int r = 1; r < height_ - 1; r++)
       {
+      
+        // Pointers to current rows in the images
         uchar *p_center = views_[view].ptr<uchar>(r),
               *p_census = census_img[view].ptr<uchar>(r);
         p_center += 1;
         p_census += 1;
 
+        // Loop over image columns
         for(int c = 1; c < width_ - 1; c++, p_center++, p_census++)
         {
           uchar p_census_val = 0, m_census_val = 0, shift_count = 0;
+          
+          // Loop over neighborhood of the current pixel
           for (int wr = r - 1; wr <= r + 1; wr++)
           {
             for (int wc = c - 1; wc <= c + 1; wc++)
@@ -202,6 +216,8 @@ void SGM::calculate_cost_hamming()
               {
                 p_census_val <<= 1;
                 m_census_val <<= 1;
+                
+                // Compare pixel values in the neighborhood
                 if(views_[view].at<uchar>(wr,wc) < *p_center ) //compare pixel values in the neighborhood
                   p_census_val = p_census_val | 0x1;
 
@@ -216,15 +232,23 @@ void SGM::calculate_cost_hamming()
 
     cout <<"\nFinding Hamming Distance" <<endl;
     
+    // Loop over image rows
     for(int r = window_height_/2 + 1; r < height_ - window_height_/2 - 1; r++)
     {
+    
+      // Loop over image columns
       for(int c = window_width_/2 + 1; c < width_ - window_width_/2 - 1; c++)
       {
+        
+        // Loop over disparity values
         for(int d=0; d<disparity_range_; d++)
         {
           long cost = 0;
+          // Loop over window rows
           for(int wr = r - window_height_/2; wr <= r + window_height_/2; wr++)
           {
+            
+            // Pointers to current rows in census images
             uchar *p_left = census_img[0].ptr<uchar>(wr),
                   *p_right = census_img[1].ptr<uchar>(wr);
 
@@ -238,6 +262,7 @@ void SGM::calculate_cost_hamming()
             const uchar out_val = census_img[1].at<uchar>(wr, width_ - window_width_/2 - 1);
 
 
+            // Loop over window columns
             for(; wc <= c + window_width_/2; wc++, p_left++, p_right++)
             {
               uchar census_left, census_right, m_census_left, m_census_right;
