@@ -292,7 +292,15 @@ void SGM::calculate_cost_hamming()
 ## compute_path_cost()
 The objective of the **compute_path_cost()** function is to calculate the cost associated with a given path for a particular pixel **p** (specified by its coordinates **cur_x** and **cur_y**). The cost should be computed for all possible disparities **d** within the range of 0 to **disparity_range_** - 1. The calculated costs should be stored in a tensor named **path_cost_[cur_path][cur_y][cur_x][d]**.
 
-**Input parameters**: **direction_y**, **direction_x**, specify the direction of the path. **cur_y**, **cur_x**, coordinates of pixel **p**. **cur_path**, index of the current path.
+**Input parameters**: 
+- **direction_y**, **direction_x**, specify the direction of the path. 
+- **cur_y**, **cur_x**, coordinates of pixel **p**.
+- **cur_path**, index of the current path.
+
+**Preconditions**:
+- **cost_**, a computed cost volume.
+- **p1**, **p2**, penalty factors.
+- **pw_**, a structure that holds information about the minimum and maximum horizontal and vertical coordinates.
 
 ```C++
 void SGM::compute_path_cost(int direction_y, int direction_x, int cur_y, int cur_x, int cur_path)
