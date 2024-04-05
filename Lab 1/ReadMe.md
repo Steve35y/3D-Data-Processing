@@ -82,17 +82,16 @@ void compute_hamming_lut()
   }
 }
 ```
-
-a
 	- **SGM constructor**: Initializes an instance of the SGM class with parameters like disparity range, penalties, confidence threshold, and window size.
-	- **set()**: Sets the left and right images along with their dimensions.
-	- **init_paths()**: Initializes the path directions skipping the degenerate path.
-	- **calculate_cost_hamming()**: Computes the cost using the Hamming distance between census transformed pixel values of the left and right images.
-	- **compute_path_cost()**: Computes the path cost for a given pixel, direction, and disparity.
-	- **aggregation()**: Aggregates the costs along different paths.
-	- **compute_disparity()**: Computes the disparity map by first calculating costs, then aggregating them, and finally estimating disparities.
-	- **compute_mse()**: Computes the Mean Squared Error (MSE) between the computed disparity map and the ground truth.
-	- **save_disparity()**: Saves the computed disparity map to an image file.
+	
+```C++
+SGM::SGM(unsigned int disparity_range, unsigned int p1, unsigned int p2, float conf_thresh, unsigned int window_height, unsigned window_width):
+  disparity_range_(disparity_range), p1_(p1), p2_(p2), conf_thresh_(conf_thresh), window_height_(window_height), window_width_(window_width)
+  {
+    compute_hamming_lut();
+  }
+
+```	
 	
 	
 	
@@ -102,9 +101,9 @@ a
 	
 	
 	
-	
-	
-	
+```C++
+
+```		
 	
 	
 	
