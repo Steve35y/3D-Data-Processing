@@ -83,6 +83,7 @@ void compute_hamming_lut()
 }
 ```
 
+
 	- **SGM constructor**: Initializes an instance of the SGM class with parameters like disparity range, penalties, confidence threshold, and window size.
 	- **set()**: Sets the left and right images along with their dimensions.
 	- **init_paths()**: Initializes the path directions skipping the degenerate path.
@@ -92,3 +93,18 @@ void compute_hamming_lut()
 	- **compute_disparity()**: Computes the disparity map by first calculating costs, then aggregating them, and finally estimating disparities.
 	- **compute_mse()**: Computes the Mean Squared Error (MSE) between the computed disparity map and the ground truth.
 	- **save_disparity()**: Saves the computed disparity map to an image file.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
