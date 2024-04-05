@@ -37,7 +37,7 @@ The scalar factor has to be computed once the disparity map with SGM is, and use
 
 This code defines the class SGM.
 Class Declaration (**SGM**):
-- **Constructor**: **SGM**Initializes various parameters used in the Semi-Global Matching algorithm.
+- **Constructor**: **SGM** initializes various parameters used in the Semi-Global Matching algorithm.
 - **Public Member Functions**:
 	- **set**: Sets input images and performs some preprocessing
 	- **compute_disparity**: Computes disparity maps using SGM algorithm
