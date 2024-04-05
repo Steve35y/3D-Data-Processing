@@ -1,5 +1,5 @@
 # 3D Data Processing
- 3D Data Processing Master Degree Course Assignments
+ 3D Data Processing Master Degree Course Assignments / OpenCV second course
  
 ## Lab 1 - Semi Global Stereo Matching with Monocular Disparity Initial Guess
 
@@ -52,3 +52,6 @@ Class Declaration (**SGM**):
 	
 - **Private Member Variables**: Various parameters and data structures used in the algorithm, such as image dimensions, disparity range, penalty parameters (p1, p2), threshold for confidence, window dimensions, matrices for disparity and monochrome images, arrays for cost computation, etc.
 
+#### sgm.cpp
+
+Here, my code implementation is provided.
