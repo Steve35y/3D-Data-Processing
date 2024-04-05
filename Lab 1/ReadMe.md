@@ -59,7 +59,7 @@ Class Declaration (**SGM**):
 	
 - **Private Member Variables**: Various parameters and data structures used in the algorithm, such as image dimensions, disparity range, penalty parameters (p1, p2), threshold for confidence, window dimensions, matrices for disparity and monochrome images, arrays for cost computation, etc.
 
-## sgm.cpp / actual code implementation
+### sgm.cpp 
 
 Here, my code implementation is provided.
 
@@ -289,7 +289,7 @@ void SGM::calculate_cost_hamming()
   }
 ```
 
-## compute_path_cost()
+## compute_path_cost() / (1/4) implementation
 The objective of the **compute_path_cost()** function is to calculate the cost associated with a given path for a particular pixel **p** (specified by its coordinates **cur_x** and **cur_y**). The cost should be computed for all possible disparities **d** within the range of 0 to **disparity_range_** - 1. The calculated costs should be stored in a tensor named **path_cost_[cur_path][cur_y][cur_x][d]**.
 
 **Input parameters**: 
