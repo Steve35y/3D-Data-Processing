@@ -120,18 +120,28 @@ SGM::SGM(unsigned int disparity_range, unsigned int p1, unsigned int p2, float c
 ```C++
 void SGM::set(const  cv::Mat &left_img, const  cv::Mat &right_img, const  cv::Mat &right_mono)
   {
+  
+    // Assign the input left and right images to the first two elements of the views_ array 
     views_[0] = left_img;
     views_[1] = right_img;
+    
+    // Assign the monocular image
     mono_ = right_mono;
 
-
+    // Determine height and width of the left and right images
     height_ = left_img.rows;
     width_ = right_img.cols;
+    
+    // Calculate and assign values of the processing window
     pw_.north = window_height_/2;
     pw_.south = height_ - window_height_/2;
     pw_.west = window_width_/2;
     pw_.east = width_ - window_height_/2;
+    
+    // See next part
     init_paths();
+    
+    //Resize data structures for cost computation, aggregation, path costs. Parameters determined based on the dimension of the input images and other parameters.
     cost_.resize(height_, ul_array2D(width_, ul_array(disparity_range_)));
     inv_confidence_.resize(height_, vector<float>(width_));
     aggr_cost_.resize(height_, ul_array2D(width_, ul_array(disparity_range_)));
