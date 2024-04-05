@@ -1,5 +1,5 @@
 # 3D Data Processing
- 3D Data Processing Master Degree Course Assignmetns
+ 3D Data Processing Master Degree Course Assignments
  
 ## Lab 1 - Semi Global Stereo Matching with Monocular Disparity Initial Guess
 
@@ -36,5 +36,17 @@ The scalar factor has to be computed once the disparity map with SGM is, and use
 #### sgm.h
 
 This code defines the class SGM.
-
+Class Declaration (**SGM**):
+- **Public Member Functions**:
+	- **set**: Sets input images and performs some preprocessing
+	- **compute_disparity**: Computes disparity maps using SGM algorithm
+	- **save_disparity**: Saves the computed disparity map to a file
+	- **compute_mse**: Computes Mean Squared Error (MSE) between the computed disparity map and a ground truth disparity map
+	
+- **Private Member Functions**:
+	- **init_paths**: Initializes paths for path calculation
+	- **aggregation**: Aggregates costs over path
+	- **calculate_cost_hamming**: Calculates cost based on Hamming distance
+	
+- **Private Member Variables**: Various parameters and data structures used in the algorithm, such as image dimensions, disparity range, penalty parameters (p1, p2), threshold for confidence, window dimensions, matrices for disparity and monochrome images, arrays for cost computation, etc.
 
