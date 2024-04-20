@@ -159,7 +159,8 @@ I'll report only Aloe case:
 MSE of the right image:  122.464
 ```
 And the image result is:
-![plot](../Lab 1/Results/Without refinements/output_disparity_Aloe.png)
+![plot](../Lab%201/Results/Without%20refinements/output_disparity_Aloe.png)
+
 
 
 
