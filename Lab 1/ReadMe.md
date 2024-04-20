@@ -27,9 +27,9 @@ It already implements:
 - Quantitative assessment, by means of the Mean Squared Error (MSE) computation
 of the right-to-left disparity map.
 
-## My implementation
+# My implementation
 
-1. **compute_path_cost()** function:
+## compute_path_cost()
 
 Given a single pixel **p**, defined by its coordinates **cur_x** and **cur_y**, a path with index **cur_path**, direction increments along the path **direction_x**, **direction_y**, should compute the path cost for **p** for all the possible disparities d from 0 to disparity_range_. The output should be stored in the tensor (already allocated) **path_cost_[cur_path][cur_y][cur_x][d]**, for all possible d. That is, at each call of **compute_path_cost()**, given a pixel with coordinates.
 
@@ -70,7 +70,7 @@ So here for pixels in the borders, since the neightborhood isn't very reliable w
 	      		// C(p,d)
 	      		no_penalty_cost = cost_[cur_y][cur_x][d];
 ```
-First part of the Smoothness term is the previous pixel, along path direction, of the current pixel: $$prev_cost = L_r(p-r,d)$$
+First part of the Smoothness term is the previous pixel, along path direction, of the current pixel: $$prevcost = L_r(p-r,d)$$
 ```c++
 	      		// - Smoothenss term: previous path cost
 	      		prev_cost = path_cost_[cur_path][cur_y - direction_y][cur_x - direction_x][d];
@@ -129,7 +129,29 @@ The final output is computed as the above formula:
 	}
   }
 ```
+## aggregation()
+In the **aggregation()** function I just had to initialize the  the variables **start_x**, **start_y**, **end_x**, **end_y**, **step_x** and **step_y** are used to define the cycles where **compute_path_cost()** is called.
 
+```c++
+      // Variables initialization
+      start_x = (dir_x == 1) ? 0 : (dir_x == -1) ? width_ - 1 :  0;
+      end_x = (dir_x == 1) ? width_ -1 : (dir_x == -1) ? 0  : width_ - 1;
+      step_x = (dir_x == 1 || dir_x == -1) ? dir_x : 1 ;
+      
+      start_y = (dir_y == 1) ? 0 : (dir_y == -1) ? height_ - 1 : 0;
+      end_y = (dir_y == 1) ? height_ -1 : (dir_y == -1) ? 0  : height_ - 1;
+      step_y = (dir_y == 1 || dir_y == -1) ? dir_y : 1 ;
+      
+      for(int y = start_y; y != end_y ; y+=step_y)
+      {
+        for(int x = start_x; x != end_x ; x+=step_x)
+        {
+          compute_path_cost(dir_y, dir_x, y, x, cur_path);
+          
+        }
+      }
+    }
+```
 
 
 
