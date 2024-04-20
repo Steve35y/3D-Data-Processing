@@ -152,9 +152,9 @@ In the **aggregation()** function I just had to initialize the  the variables **
       }
     }
 ```
-### Results without refinements
-After the initial cost computation I've calculated, for the 4 provided sample images: Aloe, Cones, Plastic, Rocks, the disparity images and their MSE errors, everything accessible at [results](https://github.com/Steve35y/3D-Data-Processing/tree/main/Lab%201/Results).
-I'll report only Aloe case:
+# Results without refinements
+After the initial cost computation, for the 4 provided sample images: Aloe, Cones, Plastic, Rocks, I've calculated the disparity images and their MSE errors, accessible at [results](https://github.com/Steve35y/3D-Data-Processing/tree/main/Lab%201/Results).
+For example the Aloe case:
 ```
 MSE of the right image:  122.464
 ```
@@ -162,6 +162,109 @@ And the image result is:
 
 ![plot](../Lab%201/Results/Without%20refinements/output_disparity_Aloe.png)
 
+## compute_disparity()
+In the **compute_disparity()** function, use high confidence disparities to compute the linear coefficients that should be applied to the monocular disparity values in order to scale them.
+
+Namely, given a pair of disparities of the same pixel $d_{sgm}$ and $d_{mono}$ representing the disparity estimated with SGM and the (unscaled) initial guess disparity, find $h$ and $k$ such that: $$d_{sgm} = h * d_{mono} + k$$
+
+Recall that the solution for the least squares problem for a nonhomogeneous system $Ax = b$ is expressed as: $$x = (A^T A)^{-1} A^T b$$
+where $x = [h k]^T$, $b = d_{sgm}$, $A = [d_{mono}, \overline{1}]$.
+
+First create the struct to store the disparity vectors.
+```c++
+    struct DisparityPair 
+  {
+  	int d_mono;
+  	int d_sgm;
+  };
+
+  void SGM::compute_disparity()
+  {
+      calculate_cost_hamming();
+      aggregation();
+      disp_ = Mat(Size(width_, height_), CV_8UC1, Scalar::all(0));
+      int n_valid = 0;
+      std::vector<DisparityPair> disparity_pair;
+      for (int row = 0; row < height_; ++row)
+      {
+          for (int col = 0; col < width_; ++col)
+          {
+              unsigned long smallest_cost = aggr_cost_[row][col][0];
+              int smallest_disparity = 0;
+              for(int d=disparity_range_-1; d>=0; --d)
+              {
+
+                  if(aggr_cost_[row][col][d]<smallest_cost)
+                  {
+                      smallest_cost = aggr_cost_[row][col][d];
+                      smallest_disparity = d; 
+
+                  }
+              }
+              inv_confidence_[row][col] = smallest_cost - inv_confidence_[row][col];
+```
+After calculating the confindencies, find the disparities with good confidence and store them paired with the corrispondent monocular value:
+```c++
+              // If the following condition is true, the disparity at position (row, col) has a good confidence
+              if (inv_confidence_[row][col] > 0 && inv_confidence_[row][col] <conf_thresh_)
+              {
+
+                uchar d_mono = mono_.at<uchar>(row, col);
+                
+                uchar d_sgm = smallest_disparity*255.0/disparity_range_;
+                
+                disparity_pair.push_back({d_mono, d_sgm});
+                
+                
+                /////////////////////////////////////////////////////////////////////////////////////////
+              }
+
+              disp_.at<uchar>(row, col) = smallest_disparity*255.0/disparity_range_;
+
+          }
+      }
+```
+Now solve the least square problem:
+```c++
+      
+       Eigen::MatrixXd A(disparity_pair.size(), 2);
+       Eigen::VectorXd b(disparity_pair.size(),1);
+      Eigen::VectorXd x;
+      
+      for (int i = 0; i < disparity_pair.size(); ++i) 
+       {
+       	A(i, 0) = disparity_pair[i].d_mono;
+       	A(i, 1) = 1;
+       	b(i) = disparity_pair[i].d_sgm;
+       } 
+      
+      {
+      		x = (A.transpose() * A).inverse() * A.transpose() * b;
+      }
+      float h = x(0);
+      float k = x(1);
+```
+Improve the low confidence values with the scaled ones:
+```c++      
+      for (int row = 0; row < height_; ++row)
+      {
+      		for (int col = 0; col < width_; ++col)
+      		{
+      			if (!(inv_confidence_[row][col] > 0 && inv_confidence_[row][col] <conf_thresh_)){
+      			disp_.at<uchar>(row, col) = h * mono_.at<uchar>(row, col) + k;
+      			}	    			
+      		}
+      	}
+  }
+```
+# Results after the refinement step
+After running the last **compute_disparity()** function, the improvements of the results, about both images quality and MSE errors are considerable.
+```
+MSE of the right image:  13.7291
+```
+And the image result is:
+
+![plot](../Lab%201/Results/With%20refinements/output_disparity_Aloe.png)
 
 
 
