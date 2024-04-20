@@ -153,7 +153,7 @@ In the **aggregation()** function I just had to initialize the  the variables **
     }
 ```
 ### Results without refinements
-After the initial cost computation I've calculated, for the 4 provided sample images: Aloe, Cones, Plastic, Rocks, the disparity images and their MSE errors, everything accessible at [results](3D-Data-Processing/Lab 1/Results/)
+After the initial cost computation I've calculated, for the 4 provided sample images: Aloe, Cones, Plastic, Rocks, the disparity images and their MSE errors, everything accessible at [results](https://github.com/Steve35y/3D-Data-Processing/tree/main/Lab%201/Results)
 
 
 
