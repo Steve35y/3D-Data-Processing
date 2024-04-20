@@ -29,16 +29,17 @@ of the right-to-left disparity map.
 
 ## My implementation
 
-1. *compute_path_cost() function*:
+1. **compute_path_cost()** function:
 
-Given a single pixel *p*, defined by its coordinates cur_x and cur_y, a path with index *cur_path*, direction increments along the path *direction_x*, *direction_y*, should compute the path cost for *p* for all the possible disparities d from 0 to disparity_range_. The output should be stored in the tensor (already allocated) *path_cost_[cur_path][cur_y][cur_x][d]*, for all possible d. That is, at each call of *compute_path_cost()*, given a pixel with coordinates.
+Given a single pixel **p**, defined by its coordinates **cur_x** and **cur_y**, a path with index **cur_path**, direction increments along the path **direction_x**, **direction_y**, should compute the path cost for **p** for all the possible disparities d from 0 to disparity_range_. The output should be stored in the tensor (already allocated) **path_cost_[cur_path][cur_y][cur_x][d]**, for all possible d. That is, at each call of **compute_path_cost()**, given a pixel with coordinates.
 
 In particular the path_cost formula is the following:
 $$L_r(p,d) = C(p,d) + min(L_r(p-r,d), L_r(p-r,d-1) + P1, L_r(p-r,d+1) + P1, min_i(L_r(p-r,i)) + P2) - min_k(L_r(p-r,k))$$
 
 
+```c++
 
-
+```
 
 
 
