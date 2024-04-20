@@ -197,12 +197,76 @@ namespace sgm
     if(cur_y == pw_.north || cur_y == pw_.south || cur_x == pw_.east || cur_x == pw_.west)
     {
       //Please fill me!
+      
+      // For pixels in the border the output L_r(p,d) is only equal to the Data term C(p,d).
+      for (int d = 0; d < disparity_range_; ++d)
+      {
+      		// L_r(p,d) = C(p,d)
+      		path_cost_[cur_path][cur_y][cur_x][d] = cost_[cur_y][cur_x][d];
+      }
+      
     }
 
     else
     {
       //Please fill me!
-    }
+      
+      // Check the pixel is in bound
+      if (cur_y - direction_y >= 0 && cur_x - direction_x >= 0 && cur_y - direction_y < height_ && cur_x - direction_x < width_) 
+      {
+	      for (int d = 0; d < disparity_range_; ++d)
+	      {
+	      		// L_r(p,d) = C(p,d) + min(L_r(p-r,d), L_r(p-r,d-1) + P1, L_r(p-r,d+1) + P1, min_i(L_r(p-r,i)) + P2) - min_k(L_r(p-r,k))
+	      			
+	      		// - Data term as before
+	      		// C(p,d)
+	      		no_penalty_cost = cost_[cur_y][cur_x][d];
+	      		
+	      		// - Smoothenss term: previous path cost
+	      		prev_cost = path_cost_[cur_path][cur_y - direction_y][cur_x - direction_x][d];
+	      		
+	      		// - Smoothness term: penalty term for small disparity changes 
+	      		if ( d > 0 && d < disparity_range_ - 1)
+	      		{
+	      			small_penalty_cost = min(path_cost_[cur_path][cur_y - direction_y][cur_x - direction_x][d - 1] + p1_, path_cost_[cur_path][cur_y - direction_y][cur_x - direction_x][d + 1] + p1_);
+	      		}
+	      		else if ( d == 0)
+	      		{
+	      			small_penalty_cost = path_cost_[cur_path][cur_y - direction_y][cur_x - direction_x][d + 1] + p1_;
+	      		}
+	      		else if ( d == disparity_range_ - 1 )
+	      		{
+	      			small_penalty_cost = path_cost_[cur_path][cur_y - direction_y][cur_x - direction_x][d - 1] + p1_;
+	      		}
+	      		
+	      		// - Smoothness term: penalty term for big disparity changes
+	      		big_penalty_cost = ULONG_MAX; // Initialization
+	      		for ( int i = 0; i < disparity_range_; ++i)
+	      		{
+	      			big_penalty_cost = std::min(path_cost_[cur_path][cur_y - direction_y][cur_x - direction_x][i], big_penalty_cost);
+	      		}
+	      		
+	      		big_penalty_cost += p2_;
+	      		
+	      		// Smoothness term as the minimum of the cost of the previous pixel, the small penalty cost, the big penalty cost
+	      		// min(L_r(p-r,d), L_r(p-r,d-1) + P1, L_r(p-r,d+1) + P1, min(L_r(p-r,i)) + P2)
+	      		penalty_cost = min(min(prev_cost, small_penalty_cost), big_penalty_cost);
+	      	
+	      		
+	      		// - Restrict the range of resulting value, without affecting the minimization procedure
+	      		// min_k(L_r(p-r,k))
+	      		best_prev_cost = ULONG_MAX; // Initialization
+	      		for ( int k = 0; k < disparity_range_; ++k)
+	      		{
+	      			best_prev_cost = min(best_prev_cost, path_cost_[cur_path][cur_y - direction_y][cur_x - direction_x][k]);
+	      		}
+	      		
+	      		// output
+	      		path_cost_[cur_path][cur_y][cur_x][d] = no_penalty_cost + penalty_cost - best_prev_cost;
+	      }
+	      
+	    }
+	}
     
     
     /////////////////////////////////////////////////////////////////////////////////////////
@@ -223,16 +287,27 @@ namespace sgm
 
       int dir_x = paths_[cur_path].direction_x;
       int dir_y = paths_[cur_path].direction_y;
+      //std::cout << "dir_x: " << dir_x << ", dir_y " << dir_y << std::endl;
       
       int start_x, start_y, end_x, end_y, step_x, step_y;
       
-//      for(int y = start_y; y != end_y ; y+=step_y)
-//      {
-//        for(int x = start_x; x != end_x ; x+=step_x)
-//        {
-//          compute_path_cost(dir_y, dir_x, y, x, cur_path);
-//        }
-//      }
+      // Variables initialization
+      start_x = (dir_x == 1) ? 0 : (dir_x == -1) ? width_ - 1 :  0;
+      end_x = (dir_x == 1) ? width_ -1 : (dir_x == -1) ? 0  : width_ - 1;
+      step_x = (dir_x == 1 || dir_x == -1) ? dir_x : 1 ;
+      
+      start_y = (dir_y == 1) ? 0 : (dir_y == -1) ? height_ - 1 : 0;
+      end_y = (dir_y == 1) ? height_ -1 : (dir_y == -1) ? 0  : height_ - 1;
+      step_y = (dir_y == 1 || dir_y == -1) ? dir_y : 1 ;
+      
+      for(int y = start_y; y != end_y ; y+=step_y)
+      {
+        for(int x = start_x; x != end_x ; x+=step_x)
+        {
+          compute_path_cost(dir_y, dir_x, y, x, cur_path);
+          
+        }
+      }
       
       /////////////////////////////////////////////////////////////////////////////////////////
     }
@@ -265,7 +340,13 @@ namespace sgm
     }
 
   }
-
+  
+    struct DisparityPair 
+  {
+  	int d_mono;
+  	int d_sgm;
+  };
+ 
 
   void SGM::compute_disparity()
   {
@@ -273,6 +354,7 @@ namespace sgm
       aggregation();
       disp_ = Mat(Size(width_, height_), CV_8UC1, Scalar::all(0));
       int n_valid = 0;
+      std::vector<DisparityPair> disparity_pair;
       for (int row = 0; row < height_; ++row)
       {
           for (int col = 0; col < width_; ++col)
@@ -301,10 +383,11 @@ namespace sgm
                 // to estimate the unknown scale factor.    
                 /////////////////////////////////////////////////////////////////////////////////////////
 
+                uchar d_mono = mono_.at<uchar>(row, col);
                 
+                uchar d_sgm = smallest_disparity*255.0/disparity_range_;
                 
-                
-                
+                disparity_pair.push_back({d_mono, d_sgm});
                 
                 
                 /////////////////////////////////////////////////////////////////////////////////////////
@@ -321,13 +404,36 @@ namespace sgm
       // accordingly. Finally,  and use them to improve/replace the low-confidence SGM 
       // disparities.
       /////////////////////////////////////////////////////////////////////////////////////////
-
       
+       Eigen::MatrixXd A(disparity_pair.size(), 2);
+       Eigen::VectorXd b(disparity_pair.size(),1);
+      Eigen::VectorXd x;
       
+      for (int i = 0; i < disparity_pair.size(); ++i) 
+       {
+       	A(i, 0) = disparity_pair[i].d_mono;
+       	A(i, 1) = 1;
+       	b(i) = disparity_pair[i].d_sgm;
+       } 
       
+      {
+      		x = (A.transpose() * A).inverse() * A.transpose() * b;
+      }
+      float h = x(0);
+      float k = x(1);
       
-      
-      
+      for (int row = 0; row < height_; ++row)
+      {
+      		for (int col = 0; col < width_; ++col)
+      		{
+      			if (!(inv_confidence_[row][col] > 0 && inv_confidence_[row][col] <conf_thresh_)){
+      			disp_.at<uchar>(row, col) = h * mono_.at<uchar>(row, col) + k;
+      			}	    			
+      		}
+      	}
+      	
+	
+      			
       
       /////////////////////////////////////////////////////////////////////////////////////////
 

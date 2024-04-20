@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/stefano/Scrivania/3DP/3DP_lab_1/main.cpp" "/home/stefano/Scrivania/3DP/3DP_lab_1/build/CMakeFiles/sgm.dir/main.cpp.o"
-  "/home/stefano/Scrivania/3DP/3DP_lab_1/sgm.cpp" "/home/stefano/Scrivania/3DP/3DP_lab_1/build/CMakeFiles/sgm.dir/sgm.cpp.o"
+  "/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/main.cpp" "/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/build/CMakeFiles/sgm.dir/main.cpp.o"
+  "/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/sgm.cpp" "/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/build/CMakeFiles/sgm.dir/sgm.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

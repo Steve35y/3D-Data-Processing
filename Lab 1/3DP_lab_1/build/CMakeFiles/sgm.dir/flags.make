@@ -6,5 +6,5 @@ CXX_FLAGS =   -std=c++11 -pthread -Wall -Wextra -pedantic -Wno-unused-function -
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/stefano/Scrivania/3DP/3DP_lab_1/. -I/usr/include/eigen3 -isystem /usr/include/opencv4 
+CXX_INCLUDES = -I"/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/." -I/usr/include/eigen3 -isystem /usr/include/opencv4 
 

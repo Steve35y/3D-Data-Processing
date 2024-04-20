@@ -6,11 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/stefano/Scrivania/3DP/3DP_lab_1/main.cpp
-sgm.h
-/home/stefano/Scrivania/3DP/3DP_lab_1/sgm.h
-
-/home/stefano/Scrivania/3DP/3DP_lab_1/sgm.cpp
+/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/sgm.cpp
 algorithm
 -
 vector
@@ -24,13 +20,13 @@ thread
 chrono
 -
 sgm.h
-/home/stefano/Scrivania/3DP/3DP_lab_1/sgm.h
+/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/sgm.h
 opencv2/core.hpp
 -
 Eigen/Dense
 -
 
-/home/stefano/Scrivania/3DP/3DP_lab_1/sgm.h
+/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/sgm.h
 iostream
 -
 opencv2/core/core.hpp
@@ -38,7 +34,7 @@ opencv2/core/core.hpp
 opencv2/highgui/highgui.hpp
 -
 opencv2/imgproc/imgproc.hpp
-/home/stefano/Scrivania/3DP/3DP_lab_1/opencv2/imgproc/imgproc.hpp
+/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/opencv2/imgproc/imgproc.hpp
 
 /usr/include/eigen3/Eigen/Cholesky
 Core

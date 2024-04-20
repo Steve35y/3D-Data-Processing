@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/stefano/Scrivania/3DP/3DP_lab_1
+CMAKE_SOURCE_DIR = "/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/stefano/Scrivania/3DP/3DP_lab_1/build
+CMAKE_BINARY_DIR = "/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/build"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/sgm.dir/depend.make
@@ -59,29 +59,29 @@ include CMakeFiles/sgm.dir/flags.make
 
 CMakeFiles/sgm.dir/sgm.cpp.o: CMakeFiles/sgm.dir/flags.make
 CMakeFiles/sgm.dir/sgm.cpp.o: ../sgm.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Scrivania/3DP/3DP_lab_1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/sgm.dir/sgm.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sgm.dir/sgm.cpp.o -c /home/stefano/Scrivania/3DP/3DP_lab_1/sgm.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/sgm.dir/sgm.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sgm.dir/sgm.cpp.o -c "/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/sgm.cpp"
 
 CMakeFiles/sgm.dir/sgm.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sgm.dir/sgm.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/stefano/Scrivania/3DP/3DP_lab_1/sgm.cpp > CMakeFiles/sgm.dir/sgm.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/sgm.cpp" > CMakeFiles/sgm.dir/sgm.cpp.i
 
 CMakeFiles/sgm.dir/sgm.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sgm.dir/sgm.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/stefano/Scrivania/3DP/3DP_lab_1/sgm.cpp -o CMakeFiles/sgm.dir/sgm.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/sgm.cpp" -o CMakeFiles/sgm.dir/sgm.cpp.s
 
 CMakeFiles/sgm.dir/main.cpp.o: CMakeFiles/sgm.dir/flags.make
 CMakeFiles/sgm.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Scrivania/3DP/3DP_lab_1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/sgm.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sgm.dir/main.cpp.o -c /home/stefano/Scrivania/3DP/3DP_lab_1/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/sgm.dir/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sgm.dir/main.cpp.o -c "/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/main.cpp"
 
 CMakeFiles/sgm.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sgm.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/stefano/Scrivania/3DP/3DP_lab_1/main.cpp > CMakeFiles/sgm.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/main.cpp" > CMakeFiles/sgm.dir/main.cpp.i
 
 CMakeFiles/sgm.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sgm.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/stefano/Scrivania/3DP/3DP_lab_1/main.cpp -o CMakeFiles/sgm.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/main.cpp" -o CMakeFiles/sgm.dir/main.cpp.s
 
 # Object files for target sgm
 sgm_OBJECTS = \
@@ -143,7 +143,7 @@ sgm: /usr/lib/x86_64-linux-gnu/libopencv_photo.so.4.2.0
 sgm: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.4.2.0
 sgm: /usr/lib/x86_64-linux-gnu/libopencv_core.so.4.2.0
 sgm: CMakeFiles/sgm.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/stefano/Scrivania/3DP/3DP_lab_1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable sgm"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable sgm"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/sgm.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -156,6 +156,6 @@ CMakeFiles/sgm.dir/clean:
 .PHONY : CMakeFiles/sgm.dir/clean
 
 CMakeFiles/sgm.dir/depend:
-	cd /home/stefano/Scrivania/3DP/3DP_lab_1/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/stefano/Scrivania/3DP/3DP_lab_1 /home/stefano/Scrivania/3DP/3DP_lab_1 /home/stefano/Scrivania/3DP/3DP_lab_1/build /home/stefano/Scrivania/3DP/3DP_lab_1/build /home/stefano/Scrivania/3DP/3DP_lab_1/build/CMakeFiles/sgm.dir/DependInfo.cmake --color=$(COLOR)
+	cd "/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/build" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1" "/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1" "/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/build" "/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/build" "/home/stefano/Scrivania/3DP/3D-Data-Processing/Lab 1/3DP_lab_1/build/CMakeFiles/sgm.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/sgm.dir/depend
 
