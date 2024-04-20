@@ -38,7 +38,96 @@ $$L_r(p,d) = C(p,d) + min(L_r(p-r,d), L_r(p-r,d-1) + P1, L_r(p-r,d+1) + P1, min_
 
 
 ```c++
+  void SGM::compute_path_cost(int direction_y, int direction_x, int cur_y, int cur_x, int cur_path)
+  {
+    unsigned long prev_cost, best_prev_cost, no_penalty_cost, penalty_cost, 
+                  small_penalty_cost, big_penalty_cost;
+ // if the processed pixel is the first:
+    if(cur_y == pw_.north || cur_y == pw_.south || cur_x == pw_.east || cur_x == pw_.west)
+    {
+      // For pixels in the border the output L_r(p,d) is only equal to the Data term C(p,d).
+      for (int d = 0; d < disparity_range_; ++d)
+      {
+      		// L_r(p,d) = C(p,d)
+      		path_cost_[cur_path][cur_y][cur_x][d] = cost_[cur_y][cur_x][d];
+      }
+      
+    }
+```
+So here for pixels in the borders, since the neightborhood isn't very reliable we consider the total cost equal as the Data term equal to the already calculated cost: $$L_r(p,d) = C(p,d)$$
 
+```c++
+    else
+    {
+      // Check the pixel is in bound
+      if (cur_y - direction_y >= 0 && cur_x - direction_x >= 0 && cur_y - direction_y < height_ && cur_x - direction_x < width_) 
+      {
+	      for (int d = 0; d < disparity_range_; ++d)
+	      {
+	      		// L_r(p,d) = C(p,d) + min(L_r(p-r,d), L_r(p-r,d-1) + P1, L_r(p-r,d+1) + P1, min_i(L_r(p-r,i)) + P2) - min_k(L_r(p-r,k))
+	      			
+	      		// - Data term as before
+	      		// C(p,d)
+	      		no_penalty_cost = cost_[cur_y][cur_x][d];
+```
+First part of the Smoothness term is the previous pixel, along path direction, of the current pixel: $$prev_cost = L_r(p-r,d)$$
+```c++
+	      		// - Smoothenss term: previous path cost
+	      		prev_cost = path_cost_[cur_path][cur_y - direction_y][cur_x - direction_x][d];
+```
+Second part of the Smoothness term is the penalty cost due to small disparity changes, equal to: $$L_r(p-r,d-1) + P1 \text{ or } L_r(p-r,d+1) + P1$$
+```c++
+	      		// - Smoothness term: penalty term for small disparity changes 
+	      		if ( d > 0 && d < disparity_range_ - 1)
+	      		{
+	      			small_penalty_cost = min(path_cost_[cur_path][cur_y - direction_y][cur_x - direction_x][d - 1] + p1_, path_cost_[cur_path][cur_y - direction_y][cur_x - direction_x][d + 1] + p1_);
+	      		}
+	      		else if ( d == 0)
+	      		{
+	      			small_penalty_cost = path_cost_[cur_path][cur_y - direction_y][cur_x - direction_x][d + 1] + p1_;
+	      		}
+	      		else if ( d == disparity_range_ - 1 )
+	      		{
+	      			small_penalty_cost = path_cost_[cur_path][cur_y - direction_y][cur_x - direction_x][d - 1] + p1_;
+	      		}
+```
+Last part of the Smoothness term is the penalty cost due to big disparity changes, equal to: $$min_i(L_r(p-r,i)) + P2$$
+```c++
+	      		
+	      		// - Smoothness term: penalty term for big disparity changes
+	      		big_penalty_cost = ULONG_MAX; // Initialization
+	      		for ( int i = 0; i < disparity_range_; ++i)
+	      		{
+	      			big_penalty_cost = std::min(path_cost_[cur_path][cur_y - direction_y][cur_x - direction_x][i], big_penalty_cost);
+	      		}
+	      		
+	      		big_penalty_cost += p2_;
+```
+The Smoothenss term is, at the end, the minimum of the three calculated costs.
+```c++	      		
+	      		// Smoothness term as the minimum of the cost of the previous pixel, the small penalty cost, the big penalty cost
+	      		// min(L_r(p-r,d), L_r(p-r,d-1) + P1, L_r(p-r,d+1) + P1, min(L_r(p-r,i)) + P2)
+	      		penalty_cost = min(min(prev_cost, small_penalty_cost), big_penalty_cost);
+```
+TO DO $$min_k(L_r(p-r,k))$$
+```c++	      		
+	      		// - Restrict the range of resulting value, without affecting the minimization procedure
+	      		// min_k(L_r(p-r,k))
+	      		best_prev_cost = ULONG_MAX; // Initialization
+	      		for ( int k = 0; k < disparity_range_; ++k)
+	      		{
+	      			best_prev_cost = min(best_prev_cost, path_cost_[cur_path][cur_y - direction_y][cur_x - direction_x][k]);
+	      		}
+```
+The final output is computed as the above formula:
+```c++	      		
+	      		// output
+	      		path_cost_[cur_path][cur_y][cur_x][d] = no_penalty_cost + penalty_cost - best_prev_cost;
+	      }
+	      
+	    }
+	}
+  }
 ```
 
 
