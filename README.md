@@ -12,7 +12,9 @@ In this assignment, you will find code that implements the SGM stereo matching a
 #### References
 
 
-## Lab 2 - To be updated
+## Lab 2 -  Structure from Motion
+Estimate the 3D structure of a small scene taken by your smartphone from a sequence of images with some field-of-view overlaps.
+
 
 ### Overview
 
